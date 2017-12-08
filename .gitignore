@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+# Other
+.idea
+mips-x86.linux-xgcc/
+mips/
