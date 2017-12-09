@@ -29,7 +29,7 @@
 
 Scheduler::Scheduler()
 { 
-    readyList = new List; 
+//    readyList = new List;
 } 
 
 //----------------------------------------------------------------------
@@ -39,9 +39,10 @@ Scheduler::Scheduler()
 
 Scheduler::~Scheduler()
 { 
-    delete readyList; 
+//    delete readyList;
 } 
 
+/*
 //----------------------------------------------------------------------
 // Scheduler::ReadyToRun
 // 	Mark a thread as ready, but not running.
@@ -86,7 +87,7 @@ Scheduler::FindNextToRun ()
 //
 //	"nextThread" is the thread to be put into the CPU.
 //----------------------------------------------------------------------
-
+*/
 void
 Scheduler::Run (Thread *nextThread)
 {
@@ -133,7 +134,7 @@ Scheduler::Run (Thread *nextThread)
     }
 #endif
 }
-
+/*
 //----------------------------------------------------------------------
 // Scheduler::Print
 // 	Print the scheduler state -- in other words, the contents of
@@ -145,3 +146,4 @@ Scheduler::Print()
     printf("Ready list contents:\n");
     readyList->Mapcar((VoidFunctionPtr) ThreadPrint);
 }
+*/
