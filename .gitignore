@@ -32,3 +32,6 @@
 .idea
 mips-x86.linux-xgcc/
 mips/
+nachos-3.4/code/cmake-build-debug/
+nachos-3.4/code/CMakeLists.txt
+
