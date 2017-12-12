@@ -29,7 +29,7 @@ threadElement PriorityQueue::dequeue() {
     if (empty()) {
         threadElement empty;
         empty.priority = -1;
-        empty.thread = 'a';// it should change to nullptr
+        empty.thread = nullptr;
         return empty;
     }
     threadElement result = queue[0];
