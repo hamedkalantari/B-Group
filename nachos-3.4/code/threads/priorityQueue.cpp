@@ -1,10 +1,4 @@
-//
-//  priorityQueue.cpp
-//  os2
-//
-//  Created by Hamed Kalantari on 9/21/1396 AP.
-//  Copyright © 1396 AP Hamed Kalantari. All rights reserved.
-//
+
 
 #include "priorityQueue.hpp"
 
@@ -35,7 +29,7 @@ threadElement PriorityQueue::dequeue() {
     if (empty()) {
         threadElement empty;
         empty.priority = -1;
-        empty.thread = nullptr;
+        empty.thread = 'a';// it should change to nullptr
         return empty;
     }
     threadElement result = queue[0];

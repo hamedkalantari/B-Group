@@ -1,10 +1,4 @@
-//
-//  priorityQueue.hpp
-//  os2
-//
-//  Created by Hamed Kalantari on 9/21/1396 AP.
-//  Copyright © 1396 AP Hamed Kalantari. All rights reserved.
-//
+
 
 #ifndef priorityQueue_hpp
 #define priorityQueue_hpp
@@ -18,7 +12,7 @@ using namespace std;
 
 
 struct threadElement {
-    Thread* thread;
+    char thread;
     int priority;
 };
 
