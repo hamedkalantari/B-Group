@@ -7,20 +7,38 @@
 // Priority of Queue 2 has lower priority than in Queue 1.
 //
 //
-//Created by Maryam Sadat Hashemi on 20/9/1396.
+/**/
+//Created by Maryam Sadat Hashemi and Mahsa Razavi on 20/9/1396.
 #include <MLQ.h>
 #include "system.h"
 
 MLQ::MLQ()
 {
-	multiLevelList = new List<Thread *>[2];
+	q1 = new List;
+	q2 = new List;
 	QT[0]=20;
 	QT[1]=30;
+
+    lastTime = time(0); 
 }
  
-MLQ::~MLQ
+MLQ::~MLQ()
 {
-	delete multiLevelList;
+	delete q1;
+	delete q2;
+}
+
+
+int
+MLQ::ExecutionTime(Thread * thread)
+{
+    
+    
+    int currentTime = time(0);
+    execution[atoi(thread->getName())] += currentTime - lastTime; 
+    lastTime = time(0);
+    return execution[atoi(thread->getName())] ;
+    
 }
 
 void
@@ -29,32 +47,44 @@ MLQ::ReadyToRun (Thread *thread)
 	DEBUG('t', "Putting thread %s on ready list.\n", thread->getName());
 	//At first, All the thread put in Queue 1
     thread->setStatus(READY);
-    multiLevelList[0].Append(thread);
+    q1->Append(thread);
+    this->setList(thread,0);
+}
+
+int 
+MLQ::getList(Thread * thread)
+{
+	return listNum[atoi(thread->getName())];
+}
+
+void
+MLQ::setList(Thread * thread, int num)
+{
+	listNum[atoi(thread->getName())] = num;
 }
 
 Thread *
 MLQ::FindNextToRun ()
 {
-	//check whether the multilevellist[0] is empty or not 
-    //  if it is not empty, use the priority algorithm in multilevellist[0]
-    //  else it is empty, use the SJF algorithm in multilevellist[1]
+	//check whether the q1 is empty or not 
+    //  if it is not empty, use the SJF algorithm in q1
+    //  else it is empty, use the priority algorithm in q2
 
     Thread * next_to_run;
-    if(multiLevelList[0].IsEmpty() == false)
+    if(q1->IsEmpty() == false)
     {
 			//If the Execution Time of thread is more than Quantum Time of Queue1, it will be 
 			//removed from Queue1 and appended to Queue2.
-			//assume that we have execution time in thread as an attribute so it  maybe will change 
-			//in other commits. and also assume that we have function "getlist" that is shown each thread 
-			//ralated to which Queue.
-	    	if(currentThread->executionTime >=QT[0] && currentThread->getlist() == 0)
+			
+	    	if(this->ExecutionTime(currentThread) >= QT[0] && this->getList(currentThread) == 0)
 			{
-				next_to_run = multiLevelList[0].Remove();
-				multiLevelList[1].Append(currentThread);
+				next_to_run = (Thread*) q1->Remove();
+				q2->SortedInsert(currentThread, currentThread->getpri());
+				this->setList(currentThread ,1);
 			}
 			else
 			{
-      		    next_to_run = multiLevelList[0].Remove();
+      		    next_to_run =(Thread*) q1->Remove();
 			}
     }
         
@@ -62,21 +92,21 @@ MLQ::FindNextToRun ()
     {
 		//If the Execution Time of thread is more than Quantum Time of Queue2, it will be 
 		//removed from Queue2 and put at the end of the Queue2.
-		//assume that we have execution time in thread as an attribute so it  maybe will change 
-		//in other commits. and also assume that we have function "getlist" that is shown each thread 
-		//ralated to which Queue.
-    	if(currentThread->executionTime >=QT[1] && currentThread->getlist() == 1)
+		
+    	if(this->ExecutionTime(currentThread) >= QT[1] && this->getList(currentThread) == 1)
 		{
-			next_to_run = multiLevelList[1].Remove();
-			multiLevelList[1].Append(currentThread);
+			next_to_run = (Thread*) q2->Remove();
+			q2->SortedInsert(currentThread,currentThread->getpri());
 		}
 		else
 		{
-        	next_to_run = multiLevelList[1].Remove();
+        	next_to_run = (Thread*) q2->Remove();
 		}
     }
         
     return next_to_run;
 }
+
+
 
 

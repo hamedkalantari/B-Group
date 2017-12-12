@@ -7,10 +7,14 @@
 // Priority of Queue 2 has lower priority than in Queue 1.
 //
 //
-//Created by Maryam Sadat Hashemi on 20/9/1396.
-#include <scheduler.h>
+//Created by Maryam Sadat Hashemi and Mahsa Razavi on 20/9/1396.
+
+#ifndef MLQ_H
+#define MLQ_H
+#include "scheduler.h"
 #include "list.h"
 #include "thread.h"
+#include <time.h> 
 
 class MLQ : public Scheduler
 {
@@ -18,8 +22,29 @@ public:
 	MLQ();
 	~MLQ();
 
-private:
-	List * multilevellist;
+	int lastTime ;
+
+
+
+	int listNum[10]; 
+
+	int execution[10] ; 
+
+	void setList(Thread * thread, int num); // Sets list number
+	
+	int getList(Thread * thread); //Returns list number
+
+	int ExecutionTime(Thread * thread); // Calculate job times
+
+	void ReadyToRun(Thread* thread) ;// Thread can be dispatched.
+	
+	Thread* FindNextToRun();
+	
+
+
+	List * q1;
+	List * q2;
 	//Quantum Time of each queue
 	int QT[2];
-}
+};
+#endif
