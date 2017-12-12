@@ -14,6 +14,7 @@
 #include "scheduler.h"
 #include "list.h"
 #include "thread.h"
+#include "priorityScheduler.h"
 #include <time.h> 
 
 class MLQ : public Scheduler
@@ -43,7 +44,8 @@ public:
 
 
 	List * q1;
-	List * q2;
+	priorityScheduler pq;
+
 	//Quantum Time of each queue
 	int QT[2];
 };

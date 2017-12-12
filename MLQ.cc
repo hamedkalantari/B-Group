@@ -11,11 +11,12 @@
 //Created by Maryam Sadat Hashemi and Mahsa Razavi on 20/9/1396.
 #include <MLQ.h>
 #include "system.h"
+#include <iostream>
 
 MLQ::MLQ()
 {
 	q1 = new List;
-	q2 = new List;
+	pq = new priorityScheduler;
 	QT[0]=20;
 	QT[1]=30;
 
@@ -25,7 +26,7 @@ MLQ::MLQ()
 MLQ::~MLQ()
 {
 	delete q1;
-	delete q2;
+	
 }
 
 
@@ -44,6 +45,7 @@ MLQ::ExecutionTime(Thread * thread)
 void
 MLQ::ReadyToRun (Thread *thread)
 {
+	
 	DEBUG('t', "Putting thread %s on ready list.\n", thread->getName());
 	//At first, All the thread put in Queue 1
     thread->setStatus(READY);
@@ -51,7 +53,7 @@ MLQ::ReadyToRun (Thread *thread)
     this->setList(thread,0);
 }
 
-int 
+ 
 MLQ::getList(Thread * thread)
 {
 	return listNum[atoi(thread->getName())];
@@ -66,6 +68,7 @@ MLQ::setList(Thread * thread, int num)
 Thread *
 MLQ::FindNextToRun ()
 {
+
 	//check whether the q1 is empty or not 
     //  if it is not empty, use the SJF algorithm in q1
     //  else it is empty, use the priority algorithm in q2
@@ -79,7 +82,7 @@ MLQ::FindNextToRun ()
 	    	if(this->ExecutionTime(currentThread) >= QT[0] && this->getList(currentThread) == 0)
 			{
 				next_to_run = (Thread*) q1->Remove();
-				q2->SortedInsert(currentThread, currentThread->getpri());
+				pq->ReadyToRun(currentThread);
 				this->setList(currentThread ,1);
 			}
 			else
@@ -95,16 +98,18 @@ MLQ::FindNextToRun ()
 		
     	if(this->ExecutionTime(currentThread) >= QT[1] && this->getList(currentThread) == 1)
 		{
-			next_to_run = (Thread*) q2->Remove();
-			q2->SortedInsert(currentThread,currentThread->getpri());
+			next_to_run = pq->FindNextToRun();
+			pq->ReadyToRun(currentThread);
 		}
 		else
 		{
-        	next_to_run = (Thread*) q2->Remove();
+        	next_to_run = pq->FindNextToRun();
 		}
     }
         
     return next_to_run;
+
+
 }
 
 
