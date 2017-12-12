@@ -1,23 +1,24 @@
 //
 //  priorityQueue.hpp
-//  os_proj2
+//  os2
 //
-//  Created by Hamed Kalantari on 9/19/1396 AP.
+//  Created by Hamed Kalantari on 9/21/1396 AP.
 //  Copyright © 1396 AP Hamed Kalantari. All rights reserved.
 //
 
 #ifndef priorityQueue_hpp
 #define priorityQueue_hpp
 
+
+#include <iostream>
 #include <stdio.h>
 #include <vector>
-#include "thread.h"
 
 using namespace std;
 
 
 struct threadElement {
-    Thread* thread;
+    char thread;
     int priority;
 };
 
@@ -32,13 +33,10 @@ public:
     PriorityQueue();
     
     // Insert a new item into the priority queue
-    void enqueue(node item);
+    void enqueue(threadElement item);
     
     // return front element in queue and removes it
     threadElement dequeue();
-    
-    // return front element in queue
-    threadElement front();
     
     // check whether priority is empty
     bool empty();
@@ -49,5 +47,6 @@ public:
     // print queue
     void print();
 };
+
 
 #endif /* priorityQueue_hpp */
