@@ -12,7 +12,7 @@ using namespace std;
 
 
 struct threadElement {
-    char thread;
+   Thread* thread;
     int priority;
 };
 
