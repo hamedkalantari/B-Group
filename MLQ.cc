@@ -53,7 +53,7 @@ MLQ::ReadyToRun (Thread *thread)
     this->setList(thread,0);
 }
 
- 
+int 
 MLQ::getList(Thread * thread)
 {
 	return listNum[atoi(thread->getName())];
