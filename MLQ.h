@@ -16,6 +16,7 @@
 #include "thread.h"
 #include "priorityScheduler.h"
 #include <time.h> 
+#include "sjf.h"
 
 class MLQ : public Scheduler
 {
@@ -23,27 +24,25 @@ public:
 	MLQ();
 	~MLQ();
 
-	int lastTime ;
+	int lastTime;
 
+	int listNum[10];
 
-
-	int listNum[10]; 
-
-	int execution[10] ; 
+	int execution[10];
 
 	void setList(Thread * thread, int num); // Sets list number
-	
+
 	int getList(Thread * thread); //Returns list number
 
 	int ExecutionTime(Thread * thread); // Calculate job times
 
-	void ReadyToRun(Thread* thread) ;// Thread can be dispatched.
-	
+	void ReadyToRun(Thread* thread);// Thread can be dispatched.
+
 	Thread* FindNextToRun();
-	
 
 
-	List * q1;
+
+	SJFscheduler sq;
 	priorityScheduler pq;
 
 	//Quantum Time of each queue
