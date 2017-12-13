@@ -52,6 +52,18 @@ ThreadTest1()
     SimpleThread(0);
 }
 
+void
+PriorityTest()
+{
+    DEBUG('t', "Entering ThreadTest1");
+    for (int i = 1 ; i < 100 ; i++)
+    {
+        Thread* t = new Thread("new forked thread");
+        t->Fork(SimpleThread, 120 - i);
+    }
+    SimpleThread(0);
+}
+
 //----------------------------------------------------------------------
 // ThreadTest
 // 	Invoke a test routine.
