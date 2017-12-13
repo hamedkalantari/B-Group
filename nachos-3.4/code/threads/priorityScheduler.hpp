@@ -5,7 +5,7 @@
 
 
 #include "scheduler.h"
-#include "priorityQueue.h"
+#include "priorityQueue.hpp"
 
 
 class PriorityScheduler : public Scheduler {
