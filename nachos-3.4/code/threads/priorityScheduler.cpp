@@ -14,11 +14,11 @@ PriorityScheduler::~PriorityScheduler() {
 
 Thread* PriorityScheduler::FindNextToRun() {
     // fetch next thread in queue
-    node next = pq->dequeue();
+    threadElement next = pq->dequeue();
     
     // check if we don't have ant threads available
-    if (next.thread == nullptr)
-        return nullptr;
+    if (next.thread == NULL)
+        return NULL;
     
     return next.thread;
 }
