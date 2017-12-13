@@ -76,7 +76,7 @@ ThreadTest()
 {
     switch (testnum) {
     case 1:
-	ThreadTest1();
+	PriorityTest();
 	break;
     default:
 	printf("No test specified.\n");
