@@ -11,6 +11,7 @@
 
 #include "copyright.h"
 #include "system.h"
+#include <cstdlib>
 
 // testnum is set in main.cc
 int testnum = 1;
