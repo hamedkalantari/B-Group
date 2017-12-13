@@ -11,7 +11,7 @@
 
 #include "copyright.h"
 #include "system.h"
-#include <cstdlib>
+#include "time.h"
 
 // testnum is set in main.cc
 int testnum = 1;
@@ -60,8 +60,7 @@ PriorityTest()
     for (int i = 1 ; i < 100 ; i++)
     {
         Thread* t = new Thread("new forked thread");
-        int pr = rand() % 200;
-        t->setPriority(pr);
+        t->setPriority(200 - i);
         t->Fork(SimpleThread, i);
     }
     SimpleThread(0);
