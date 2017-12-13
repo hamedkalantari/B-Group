@@ -14,7 +14,7 @@ PriorityScheduler::~PriorityScheduler() {
 
 Thread* PriorityScheduler::FindNextToRun() {
     // fetch next thread in queue
-    threadElement next = pq->dequeue();
+    threadElement next = queue->dequeue();
     
     // check if we don't have ant threads available
     if (next.thread == NULL)

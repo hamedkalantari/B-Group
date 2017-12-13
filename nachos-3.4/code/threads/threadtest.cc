@@ -59,7 +59,9 @@ PriorityTest()
     for (int i = 1 ; i < 100 ; i++)
     {
         Thread* t = new Thread("new forked thread");
-        t->Fork(SimpleThread, 120 - i);
+        int pr = rand() % 200;
+        t->setPriority(pr);
+        t->Fork(SimpleThread, i);
     }
     SimpleThread(0);
 }
