@@ -20,17 +20,17 @@
 class Scheduler {
   public:
     Scheduler();			// Initialize list of ready threads 
-    virtual ~Scheduler();			// De-allocate ready list
+    ~Scheduler();			// De-allocate ready list
 
-    virtual void ReadyToRun(Thread* thread) = 0;	// Thread can be dispatched.
-    virtual Thread* FindNextToRun() = 0;		// Dequeue first thread on the ready
+    void ReadyToRun(Thread* thread);	// Thread can be dispatched.
+    Thread* FindNextToRun();		// Dequeue first thread on the ready 
 					// list, if any, and return thread.
     void Run(Thread* nextThread);	// Cause nextThread to start running
     void Print();			// Print contents of ready list
-    
-//  private:
-//    List *readyList;  		// queue of threads that are ready to run,
-//				// but not running
+    List *allThreads;
+  private:
+    List *readyList;  		// queue of threads that are ready to run,
+				// but not running
 };
 
 #endif // SCHEDULER_H

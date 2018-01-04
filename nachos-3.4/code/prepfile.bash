@@ -3,5 +3,5 @@ export CSE120_COMMON_CFLAGS="-m32"
 export CSE120_COMMON_ASFLAGS="--32"
 export CSE120_LDFLAGS="-m32"
 export CSE120_CFLAGS="-m32 -I./ -I../threads -g"
-export CSE120_GCC=/Users/ehsan/Documents/University/OS/Projects/Project2/Nachos_Operating_Systems_Course/mips/bin/
+export CSE120_GCC=/home/hamed/Downloads/Nachos_Operating_Systems_Course-master/mips-x86.linux-xgcc/
 export MAKE_CMD="make"

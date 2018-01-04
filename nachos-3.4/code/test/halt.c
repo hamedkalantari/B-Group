@@ -15,6 +15,17 @@
 int
 main()
 {
-    Halt();
-    /* not reached */
+    int i = Fork();
+
+    if (i == 0){
+        while(1);
+    }
+    else {
+        //Exit(50);
+        //while(1);
+    }
+    //Exit(190);
+    //Join(i);
+
+    Exit(151);
 }

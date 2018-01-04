@@ -89,11 +89,11 @@ Thread::Fork(VoidFunctionPtr func, int arg)
 {
     DEBUG('t', "Forking thread \"%s\" with func = 0x%x, arg = %d\n",
 	  name, (int) func, arg);
-    
+    scheduler->allThreads->Append((void *) this);
     StackAllocate(func, arg);
 
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
-    scheduler->ReadyToRun(this);	// ReadyToRun assumes that interrupts 
+    scheduler->ReadyToRun(this);	// ReadyToRun assumes that interrupts
 					// are disabled!
     (void) interrupt->SetLevel(oldLevel);
 }    
@@ -143,11 +143,13 @@ Thread::CheckOverflow()
 void
 Thread::Finish ()
 {
-    (void) interrupt->SetLevel(IntOff);		
+    (void) interrupt->SetLevel(IntOff);
     ASSERT(this == currentThread);
-    
+
+    scheduler->allThreads->SortedRemove((int *) this);
+
     DEBUG('t', "Finishing thread \"%s\"\n", getName());
-    
+
     threadToBeDestroyed = currentThread;
     Sleep();					// invokes SWITCH
     // not reached
@@ -300,6 +302,13 @@ Thread::SaveUserState()
 {
     for (int i = 0; i < NumTotalRegs; i++)
 	userRegisters[i] = machine->ReadRegister(i);
+}
+
+// save a specified register state
+void
+Thread::SetRegister(int reg, int value)
+{
+	userRegisters[reg] = value;
 }
 
 //----------------------------------------------------------------------

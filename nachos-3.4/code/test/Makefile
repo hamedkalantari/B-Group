@@ -32,7 +32,7 @@ CPPFLAGS = $(INCDIR)
 PATH = $(GCCDIR):/lib:/usr/bin:/bin
 
 CC = $(GCCDIR)mips-gcc
-AS = $(GCCDIR)mips-as
+AS = $(GCCDIR)as
 LD = $(GCCDIR)mips-ld
 
 CPP = gcc -E
